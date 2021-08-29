@@ -88,3 +88,100 @@ const checkGrids=()=>{
 end helper functions
 
 */
+/*
+start main function
+*/
+const gameSetup=(event)=>{
+  if(event.target.classList.contains('parent')){
+    return;
+  }
+  if(event.target.great===true)
+  {
+    goodMoveAudio.pause();
+    goodMoveAudio.currentTime=0;
+    goodMoveAudio.play();
+    event.target.classList.add('good');
+    player.score+=10;
+    score.innerHTML=player.score;
+    event.target.good=false;
+
+    if(checkGrids())
+    {
+      setTimeout(() => {
+        box.style.height='20px';
+
+        setTimeout(() => {
+          nextLevel.style.display='block';
+          setTimeout(() => {
+            nextLevel.style.height='500px';       
+          }, 500);
+        },500);
+  
+        
+      }, 500);
+
+    }
+  }
+  else{
+    box.removeEventListener('click',gameSetup);
+    loseAudio.play();
+    for(let i =0 ;i<grids.length;i++){
+      if(grids[i].good===true)
+      {
+        grids[i].classList.add('good');
+      }
+    }
+    const object= JSON.parse(localStorage.memoryMatrix);
+    if(object[player.name]<player.score)
+    {
+      object[player.name]=player.score;
+      localStorage.memoryMatrix=JSON.stringify(object);
+    }
+      tiles=0;
+      player.score=0;
+      score.innerHTML=player.score;
+      highScore.innerHTML=object[player.name];
+      event.target.classList.add('bad');
+      setTimeout(() => {
+        box.style.height='20px';
+        setTimeout(() => {
+          gameOver.style.display='block';
+          setTimeout(() => {
+            gameOver.style.height='500px';       
+          }, 500);
+        },500);    
+      }, 2000);
+
+      
+    
+  }
+}
+const game= async ()=>{
+  if(tiles>=64)
+  {
+    alert('you won congratulations');
+    return;
+  }
+  setTimeout(() => {
+    nextLevel.style.display='none';
+    newGame.style.display='none';
+    gameOver.style.display='none';
+    box.style.height='500px';
+  }, 500);
+  box.removeEventListener('click',gameSetup);
+  tiles++;
+    clearGrids();
+    setTimeout(() => {
+      setGrids();
+      shuffle();
+      setTimeout(() => {
+        applyState();
+        removeState();  
+      }, 500);
+
+  }, 1000);
+
+}
+/*
+End main functions
+*/
