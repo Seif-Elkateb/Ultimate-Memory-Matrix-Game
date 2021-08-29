@@ -185,3 +185,54 @@ const game= async ()=>{
 /*
 End main functions
 */
+/*
+Start code Execution
+*/
+nextLevelButton.addEventListener('click',(e)=>{
+  e.preventDefault();
+ nextLevel.style.height='20px';
+ buttonAudio.play();
+ setTimeout(game, 500);
+});
+newGameButton.addEventListener('click',(e)=>{
+  e.preventDefault();
+ buttonAudio.play();
+  const inputName=playerName.value;
+  if(inputName==="")
+  {
+    alert('please enter your name so that you can keep track of your progress')
+    return ;
+  }
+  player.name=inputName;
+  playerNameHeader.innerHTML=inputName;
+  if(typeof(localStorage.memoryMatrix)==='undefined'){
+    const object={[inputName]:0};
+    localStorage.memoryMatrix=JSON.stringify(object);
+    highScore.innerHTML=0;
+  }
+  else{
+   const object=JSON.parse(localStorage.memoryMatrix);
+   if(typeof (object[inputName])==='undefined'){
+     object[inputName]=0;
+     localStorage.memoryMatrix=JSON.stringify(object);
+     highScore.innerHTML=0;
+   }
+   else{
+     highScore.innerHTML=object[inputName];
+   }
+ }
+  header.style.display='flex';
+  gameInfo.style.display='none';
+  newGame.style.height='20px';
+  setTimeout(game, 500);
+});
+playAgainButton.addEventListener('click',(e)=>{
+  e.preventDefault();
+ buttonAudio.play();
+ gameOver.style.height='20px';
+ setTimeout(game, 500);
+})
+/*
+End code Execution
+*/
+
