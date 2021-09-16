@@ -5,3 +5,8 @@
 - the main function is game() and it is called recursively when the player successfully moves to the next level and the start of the function a variable called tiles is increased by one and it is responsible for determining the number of colored cells on each level
  -The game uses local storage api for storing your high scores depending on the name you provide locally not on the server side
 - [click here](https://memorymatrixgame.netlify.app/) for a full preview of the game on netlify Ultimate Memory Matrix Game
+## Screenshots
+- Main Menu 
+![](./images/screenshot1.png)
+- Game
+![](./images/screenshot2.png)
